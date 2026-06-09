@@ -9,11 +9,12 @@ XML_OUTPUT = xml
 
 RECURSIVE = YES
 
-INPUT = \
-@CMAKE_SOURCE_DIR@/Source/Engine/Public \
-@CMAKE_SOURCE_DIR@/Source/EditorRuntime/Public \
-@CMAKE_SOURCE_DIR@/Source/Editor/Public \
-@CMAKE_SOURCE_DIR@/Source/Launch/Public
+INPUT = @ENGINE_ROOT@/Source/Engine \
+@ENGINE_ROOT@/Source/EditorRuntime \
+@ENGINE_ROOT@/Source/Editor \
+@ENGINE_ROOT@/Source/Launch
+
+OUTPUT_DIRECTORY = @OUTPUT_DIR@
 
 # -----------------------------
 # CORE EXTRACTION (balanced)

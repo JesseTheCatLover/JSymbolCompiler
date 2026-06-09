@@ -1,33 +1,57 @@
-#  Copyright 2025-2026 JesseTheCatLover. All Rights Reserved.
+# Copyright 2025-2026 JesseTheCatLover. All Rights Reserved.
 
-from compiler.doxygen import DoxygenLoader
+import argparse
+
+from compiler.doxygen_runner import DoxygenRunner
+from compiler.doxygen_loader import DoxygenLoader
 from compiler.builder import SymbolBuilder
 from compiler.resolver import SymbolResolver
 from exporters.json_exporter import JsonExporter
-import argparse
 
-def main(xml, out):
 
-    loader = DoxygenLoader(xml)
+def main(engine_root: str, output_dir: str):
+
+    xml_dir = DoxygenRunner().run(
+        engine_root=engine_root,
+        output_dir=output_dir
+    )
+
+    loader = DoxygenLoader(xml_dir)
     builder = SymbolBuilder()
     resolver = SymbolResolver()
     exporter = JsonExporter()
 
-    all_symbols = []
+    symbols = []
 
-    for file in loader.load_files():
-        all_symbols += builder.build(file)
+    for xml_file in loader.load_files():
+        symbols.extend(builder.build(xml_file))
 
-    all_symbols = resolver.link(all_symbols)
+    symbols = resolver.link(symbols)
 
-    exporter.export(all_symbols, out)
+    exporter.export(
+        symbols,
+        f"{output_dir}/symbols.json"
+    )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--xml", required=True)
-    parser.add_argument("--out", required=True)
+    parser.add_argument(
+        "--engine-root",
+        required=True,
+        help="Path to RedleafEngine repository"
+    )
+
+    parser.add_argument(
+        "--output",
+        required=True,
+        help="Output artifact directory"
+    )
 
     args = parser.parse_args()
 
-    main(args.xml, args.out)
+    main(
+        args.engine_root,
+        args.output
+    )

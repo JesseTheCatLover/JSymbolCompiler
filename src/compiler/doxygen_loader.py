@@ -1,9 +1,10 @@
-#  Copyright 2025-2026 JesseTheCatLover. All Rights Reserved.
-
+# Copyright 2025-2026 JesseTheCatLover. All Rights Reserved.
 
 from pathlib import Path
 
+
 class DoxygenLoader:
+
     def __init__(self, xml_dir: str):
         self.xml_dir = Path(xml_dir)
 
