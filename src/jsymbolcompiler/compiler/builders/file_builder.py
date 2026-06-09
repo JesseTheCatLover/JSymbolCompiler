@@ -1,7 +1,7 @@
 # Copyright 2025-2026 JesseTheCatLover. All Rights Reserved.
 
-from models.file_symbol import FileSymbol
-from models.base import Location
+from jsymbolcompiler.models.file_symbol import FileSymbol
+from jsymbolcompiler.models.base import Location
 
 from .utils import get_text
 

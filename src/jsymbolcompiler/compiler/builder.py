@@ -2,11 +2,11 @@
 
 import xml.etree.ElementTree as ET
 
-from src.compiler.builders.class_builder import ClassBuilder
-from src.compiler.builders.enum_builder import EnumBuilder
-from src.compiler.builders.field_builder import FieldBuilder
-from src.compiler.builders.file_builder import FileBuilder
-from src.compiler.builders.function_builder import FunctionBuilder
+from jsymbolcompiler.compiler.builders.class_builder import ClassBuilder
+from jsymbolcompiler.compiler.builders.enum_builder import EnumBuilder
+from jsymbolcompiler.compiler.builders.field_builder import FieldBuilder
+from jsymbolcompiler.compiler.builders.file_builder import FileBuilder
+from jsymbolcompiler.compiler.builders.function_builder import FunctionBuilder
 
 
 class SymbolBuilder:
@@ -22,6 +22,8 @@ class SymbolBuilder:
 
     def build(self, xml_file):
 
+        print(f"[JSymbolCompiler]: Parsing {xml_file.name}")
+
         tree = ET.parse(xml_file)
         root = tree.getroot()
 
@@ -33,6 +35,15 @@ class SymbolBuilder:
         symbols = []
 
         compound_kind = compound.attrib.get("kind")
+
+        SUPPORTED_COMPOUNDS = {
+            "file",
+            "class",
+            "struct"
+        }
+
+        if compound_kind not in SUPPORTED_COMPOUNDS:
+            return []
 
         if compound_kind == "file":
             symbols.extend(
@@ -65,5 +76,7 @@ class SymbolBuilder:
                 symbols.append(
                     self.enum_builder.build(member)
                 )
+
+            print(f"[JSymbolCompiler] Generated {len(symbols)} symbols")
 
         return symbols

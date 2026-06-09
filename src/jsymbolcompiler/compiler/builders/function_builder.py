@@ -1,8 +1,8 @@
 # Copyright 2025-2026 JesseTheCatLover. All Rights Reserved.
 
-from models.function_symbol import FunctionSymbol
-from models.function_symbol import Param
-from models.base import Location
+from jsymbolcompiler.models.function_symbol import FunctionSymbol
+from jsymbolcompiler.models.function_symbol import Param
+from jsymbolcompiler.models.base import Location
 
 from .utils import get_text
 

@@ -2,12 +2,11 @@
 
 import argparse
 
-from compiler.doxygen_runner import DoxygenRunner
-from compiler.doxygen_loader import DoxygenLoader
-from compiler.builder import SymbolBuilder
-from compiler.resolver import SymbolResolver
-from exporters.json_exporter import JsonExporter
-
+from jsymbolcompiler.compiler.doxygen_runner import DoxygenRunner
+from jsymbolcompiler.compiler.doxygen_loader import DoxygenLoader
+from jsymbolcompiler.compiler.builder import SymbolBuilder
+from jsymbolcompiler.compiler.resolver import SymbolResolver
+from jsymbolcompiler.exporters.json_exporter import JsonExporter
 
 def main(engine_root: str, output_dir: str):
 

@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jsymbolcompiler"
+version = "0.1.0"
+description = "Doxygen -> Symbol JSON compiler for RedleafEngine"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+jsymbolcompiler = "jsymbolcompiler.cli:main"
