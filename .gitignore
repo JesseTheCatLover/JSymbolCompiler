@@ -5,3 +5,4 @@ Testing/
 /artifacts
 .DS_Store
 *.pyc
+/src/jsymbolcompiler.egg-info
