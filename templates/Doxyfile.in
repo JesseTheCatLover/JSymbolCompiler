@@ -9,10 +9,10 @@ XML_OUTPUT = xml
 
 RECURSIVE = YES
 
-INPUT = @ENGINE_ROOT@/Source/Engine \
-@ENGINE_ROOT@/Source/EditorRuntime \
-@ENGINE_ROOT@/Source/Editor \
-@ENGINE_ROOT@/Source/Launch
+INPUT = @ENGINE_ROOT@/Source/Engine/Public \
+@ENGINE_ROOT@/Source/EditorRuntime/Public \
+@ENGINE_ROOT@/Source/Editor/Public \
+@ENGINE_ROOT@/Source/Launch/Public
 
 OUTPUT_DIRECTORY = @OUTPUT_DIR@
 
@@ -31,8 +31,8 @@ HIDE_UNDOC_CLASSES = NO
 # PATH STRIP
 # -----------------------------
 FULL_PATH_NAMES = NO
-STRIP_FROM_PATH = @CMAKE_SOURCE_DIR@
-STRIP_FROM_INC_PATH = @CMAKE_SOURCE_DIR@
+STRIP_FROM_PATH = @ENGINE_ROOT@
+STRIP_FROM_INC_PATH = @ENGINE_ROOT@
 
 # -----------------------------
 # SOURCE VISIBILITY (needed for editor-style docs)
