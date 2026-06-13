@@ -9,10 +9,10 @@ XML_OUTPUT = xml
 
 RECURSIVE = YES
 
-INPUT = @ENGINE_ROOT@/Source/Engine/Public \
-@ENGINE_ROOT@/Source/EditorRuntime/Public \
-@ENGINE_ROOT@/Source/Editor/Public \
-@ENGINE_ROOT@/Source/Launch/Public
+INPUT = @ENGINE_ROOT@/Source/Engine\
+@ENGINE_ROOT@/Source/EditorRuntime\
+@ENGINE_ROOT@/Source/Editor\
+@ENGINE_ROOT@/Source/Launch
 
 OUTPUT_DIRECTORY = @OUTPUT_DIR@
 

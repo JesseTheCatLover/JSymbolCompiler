@@ -29,7 +29,7 @@ def main(engine_root: str, output_dir: str):
 
     exporter.export(
         symbols,
-        f"{output_dir}/symbols.json"
+        f"{output_dir}/symbols"
     )
 
 

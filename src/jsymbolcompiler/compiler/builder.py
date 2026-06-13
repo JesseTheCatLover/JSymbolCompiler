@@ -52,7 +52,7 @@ class SymbolBuilder:
 
         elif compound_kind in ["class", "struct"]:
             symbols.extend(
-                self.class_builder.build(compound)
+                self.class_builder.build(compound, compound_kind)
             )
 
         for member in compound.findall(".//memberdef"):
@@ -77,6 +77,6 @@ class SymbolBuilder:
                     self.enum_builder.build(member)
                 )
 
-            print(f"[JSymbolCompiler] Generated {len(symbols)} symbols")
+            print(f"[JSymbolCompiler] Generated {len(symbols)}, {member_kind} symbols")
 
         return symbols

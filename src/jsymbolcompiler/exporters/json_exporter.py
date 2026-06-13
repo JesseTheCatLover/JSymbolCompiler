@@ -30,10 +30,15 @@ class JsonExporter:
         index = {}
 
         for kind, items in groups.items():
+            if kind == "class":
+                kind = "classe"
             file_path = out_dir / f"{kind}s.json"
 
             with open(file_path, "w") as f:
                 json.dump(items, f, indent=2)
+
+            if kind == "class":
+                kind = "classe"
 
             index[kind + "s"] = {
                 "file": f"{kind}s.json",

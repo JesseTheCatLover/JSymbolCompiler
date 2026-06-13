@@ -3,20 +3,22 @@
 from jsymbolcompiler.models.class_symbol import ClassSymbol
 from jsymbolcompiler.models.base import Location
 
-from .utils import get_text
+from .utils import get_text, get_visibility, get_brief_description, get_detailed_description, detect_module, \
+    is_deprecated, extract_docs, detect_visibility
 
 
 class ClassBuilder:
 
-    def build(self, compound):
+    def build(self, compound, kind):
 
         symbol = ClassSymbol(
             id=compound.attrib.get("id", ""),
             name=get_text(compound, "compoundname"),
-            kind="class",
+            kind=kind,
             module=""
         )
 
+        symbol.id = get_text(compound,"compoundname")
         location = compound.find("location")
 
         if location is not None:
@@ -25,21 +27,30 @@ class ClassBuilder:
                 line=int(location.attrib.get("line", -1))
             )
 
+        symbol.visibility = detect_visibility(symbol.location.file)
+        symbol.module = detect_module(symbol.location.file)
+
+        symbol.summary = get_brief_description(compound)
+        symbol.detail = get_detailed_description(compound)
+
+        symbol.deprecated = is_deprecated(extract_docs(compound))
+
         for base in compound.findall("basecompoundref"):
-            symbol.bases.append("".join(base.itertext()).strip())
+
+            if base.text:
+                symbol.bases.append(base.text.strip())
 
         for member in compound.findall(".//memberdef"):
 
             member_kind = member.attrib.get("kind")
 
             if member_kind == "variable":
-                symbol.fields.append(
-                    get_text(member, "name")
-                )
+                symbol.fields.append(get_text(member, "name"))
 
             elif member_kind == "function":
-                symbol.methods.append(
-                    get_text(member, "name")
-                )
+
+                qualified_name = get_text(member,"qualifiedname")
+
+                symbol.methods.append(qualified_name)
 
         return [symbol]

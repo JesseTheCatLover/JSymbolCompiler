@@ -3,7 +3,8 @@
 from jsymbolcompiler.models.field_symbol import FieldSymbol
 from jsymbolcompiler.models.base import Location
 
-from .utils import get_text
+from .utils import get_text, get_visibility_for_member, get_brief_description, get_detailed_description, detect_module, \
+    is_deprecated, extract_docs
 
 
 class FieldBuilder:
@@ -22,10 +23,17 @@ class FieldBuilder:
             "type"
         )
 
-        symbol.owner = get_text(
+        qualified_name = get_text(
             member,
             "qualifiedname"
         )
+
+        symbol.id = qualified_name
+
+        symbol.owner = qualified_name.rsplit(
+            "::",
+            1
+        )[0]
 
         location = member.find("location")
 
@@ -34,5 +42,13 @@ class FieldBuilder:
                 file=location.attrib.get("file", ""),
                 line=int(location.attrib.get("line", -1))
             )
+
+        symbol.module = detect_module(symbol.location.file)
+
+        symbol.visibility = get_visibility_for_member(member)
+        symbol.summary = get_brief_description(member)
+        symbol.detail = get_detailed_description(member)
+
+        symbol.deprecated = is_deprecated(extract_docs(member))
 
         return symbol

@@ -3,7 +3,8 @@
 from jsymbolcompiler.models.file_symbol import FileSymbol
 from jsymbolcompiler.models.base import Location
 
-from .utils import get_text
+from .utils import get_text, detect_module, is_deprecated, extract_docs, detect_visibility
+
 
 class FileBuilder:
 
@@ -23,6 +24,12 @@ class FileBuilder:
                 file=location.attrib.get("file", ""),
                 line=int(location.attrib.get("line", -1))
             )
+
+        symbol.id = symbol.location.file
+        symbol.module = detect_module(symbol.location.file)
+        symbol.visibility = detect_visibility(symbol.location.file)
+
+        symbol.deprecated = is_deprecated(extract_docs(compound))
 
         for include in compound.findall("includes"):
             symbol.includes.append(include.text or "")
