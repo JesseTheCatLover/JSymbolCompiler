@@ -3,7 +3,7 @@
 from jsymbolcompiler.models.class_symbol import ClassSymbol
 from jsymbolcompiler.models.base import Location
 
-from .utils import get_text, get_visibility, get_brief_description, get_detailed_description, detect_module, \
+from .utils import get_text, get_brief_description, get_detailed_description, detect_module, \
     is_deprecated, extract_docs, detect_visibility
 
 

@@ -77,6 +77,6 @@ class SymbolBuilder:
                     self.enum_builder.build(member)
                 )
 
-            print(f"[JSymbolCompiler] Generated {len(symbols)}, {member_kind} symbols")
+            print(f"[JSymbolCompiler]: Generated {len(symbols)}, {member_kind} symbols")
 
         return symbols

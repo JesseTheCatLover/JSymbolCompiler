@@ -6,7 +6,7 @@ from pathlib import Path
 
 class JsonExporter:
 
-    def export(self, symbols, out_dir: str):
+    def export(self, symbols, out_dir: str, metadata=None):
 
         out_dir = Path(out_dir)
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -47,3 +47,7 @@ class JsonExporter:
 
         with open(out_dir / "index.json", "w") as f:
             json.dump(index, f, indent=2)
+
+        if metadata:
+            with open(out_dir / "metadata.json", "w") as f:
+                json.dump(asdict(metadata), f, indent=2)

@@ -6,6 +6,8 @@ from jsymbolcompiler.compiler.doxygen_runner import DoxygenRunner
 from jsymbolcompiler.compiler.doxygen_loader import DoxygenLoader
 from jsymbolcompiler.compiler.builder import SymbolBuilder
 from jsymbolcompiler.compiler.resolver import SymbolResolver
+from jsymbolcompiler.config.metadata import BuildMetadata
+from jsymbolcompiler.config.version_detector import VersionDetector
 from jsymbolcompiler.exporters.json_exporter import JsonExporter
 
 def main(engine_root: str, output_dir: str):
@@ -22,14 +24,28 @@ def main(engine_root: str, output_dir: str):
 
     symbols = []
 
+    context = VersionDetector().detect(engine_root)
+
+    print(
+        f"[JSymbolCompiler]: "
+        f"Engine={context.engineVersion} "
+        f"Docs={context.documentationVersion}"
+    )
+
     for xml_file in loader.load_files():
         symbols.extend(builder.build(xml_file))
 
     symbols = resolver.link(symbols)
 
+    metadata = BuildMetadata(
+        engineVersion=context.engineVersion,
+        documentationVersion=context.documentationVersion
+    )
+
     exporter.export(
         symbols,
-        f"{output_dir}/symbols"
+        f"{output_dir}/{context.documentationVersion}/symbols",
+        metadata
     )
 
 

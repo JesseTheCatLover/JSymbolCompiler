@@ -4,8 +4,8 @@ from jsymbolcompiler.models.function_symbol import FunctionSymbol
 from jsymbolcompiler.models.function_symbol import Param
 from jsymbolcompiler.models.base import Location
 
-from .utils import get_text, get_visibility, get_brief_description, get_detailed_description, detect_module, \
-    is_deprecated, extract_docs, normalize_type
+from .utils import get_text, get_brief_description, get_detailed_description, detect_module, \
+    is_deprecated, extract_docs, normalize_type, get_visibility_for_member
 
 
 class FunctionBuilder:
@@ -52,7 +52,7 @@ class FunctionBuilder:
             )
 
         symbol.module = detect_module(symbol.location.file)
-        symbol.visibility = get_visibility(member)
+        symbol.visibility = get_visibility_for_member(member)
         symbol.summary = get_brief_description(member)
         symbol.detail = get_detailed_description(member)
 
