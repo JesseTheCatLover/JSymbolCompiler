@@ -6,3 +6,4 @@ from dataclasses import dataclass
 class BuildMetadata:
     engineVersion: str
     documentationVersion: str
+    symbolCount: int

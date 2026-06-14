@@ -39,7 +39,8 @@ def main(engine_root: str, output_dir: str):
 
     metadata = BuildMetadata(
         engineVersion=context.engineVersion,
-        documentationVersion=context.documentationVersion
+        documentationVersion=context.documentationVersion,
+        symbolCount=len(symbols)
     )
 
     exporter.export(
